@@ -8,13 +8,13 @@ Biom file: 16S data biom file containing Taxonomy, OTU/ASV counts, sequences and
 Project Name : A single word or multiple words separated by "_" (Underscore)
 
 R packages:
-phyloseq_1.50.0 (To analyze and transform microbiome data for further analysis)
-rbiom_1.0.3 (To read biom files and it must be this version)
-vegan_2.6-8 (To calculate alpha diversity indices and beta diversity pairwise distance)
-Biostrings_2.74.0 (To integrate sequences into phyloseq object
-plyr_1.1.4 (package to transform data)
-tidyr_1.3.1 (package to pivot data)
-magrittr_2.0.3 (pacakge to use %>% pipe)
+- phyloseq_1.50.0 (To analyze and transform microbiome data for further analysis)
+- rbiom_1.0.3 (To read biom files and it must be this version)
+- vegan_2.6-8 (To calculate alpha diversity indices and beta diversity pairwise distance)
+- Biostrings_2.74.0 (To integrate sequences into phyloseq object
+- plyr_1.1.4 (package to transform data)
+- tidyr_1.3.1 (package to pivot data)
+- magrittr_2.0.3 (pacakge to use %>% pipe)
 
 2. Output files 
 - Phyloseq object in the form of RDS file <project_name.YYYY.MM.DD.phyloseq.rds>

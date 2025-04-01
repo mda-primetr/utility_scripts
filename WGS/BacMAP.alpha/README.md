@@ -6,13 +6,13 @@ Project Name : A single word or multiple words separated by "_" (Underscore)
 
 
 R packages:
-phyloseq_1.50.0 (Package for analyze and transform microbiome data for further analysis)
-readr_2.1.5 (package to read BacMAP table)
-dplyr_1.1.4 (package to transform data)
-tidyr_1.3.1 (package to pivot data)
-tibble_3.2.1 (package to create dataframe)
-magrittr_2.0.3 (pacakge to use %>% pipe)
-vegan_2.6-8 (Package to calculate alpha diversity indices and beta diversity pairwise distance)
+- phyloseq_1.50.0 (Package for analyze and transform microbiome data for further analysis)
+- readr_2.1.5 (package to read BacMAP table)
+- dplyr_1.1.4 (package to transform data)
+- tidyr_1.3.1 (package to pivot data)
+- tibble_3.2.1 (package to create dataframe)
+- magrittr_2.0.3 (pacakge to use %>% pipe)
+- vegan_2.6-8 (Package to calculate alpha diversity indices and beta diversity pairwise distance)
 
 2. Output files 
 - Phyloseq object in the form of RDS file <project_name.YYYY.MM.DD.BacMAP.phyloseq.rds>
