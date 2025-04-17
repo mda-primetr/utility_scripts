@@ -31,6 +31,7 @@ R packages:
 	- bray_counts_dist.txt: Pairwise Bray distance based on the counts  <project_name.YYYY.MM.DD.bray_counts_dist.txt>
 	- bray_relative_dist.txt: Pairwise Bray distance based on the relative abundance data <project_name.YYYY.MM.DD.bray_relative_dist.txt>
 	- jaccard_dist.txt: Beta diversity distance based on the presence and absence of ASVs regardless of their abundance <project_name.YYYY.MM.DD.jaccard_dist.txt>
+	- weighted_unifrac_dist.txt: Beta diversity distance based on the UniFrac distance <project_name..YYYY.MM.DD.rarefied.weighted_unifrac_dist.txt>
 
 3. Rarefied data
 Rarefied microbiome data is a normalization technique which by default reduces the number of taxonomy classified reads in all samples equal to the sample with minimum number of reads.  

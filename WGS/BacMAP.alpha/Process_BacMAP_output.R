@@ -159,6 +159,7 @@ output_beta_div <- function(OTU_mat, project = project_name) {
     write.table(as.matrix(vegan::vegdist(t(OTU_mat), method = "jaccard")),
         file = paste0(project, ".", format(Sys.Date(), "%Y.%m.%d"), ".BacMap.jaccard_dist.txt"), col.names = NA, sep = "\t"
     )
+
 }
 
 
@@ -173,6 +174,21 @@ psmelt(physeq) %>%
 psmelt(physeq) %>%
     dplyr::rename(TaxID = OTU) %>%
     write.table(., file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".BacMap.phyloseq_melted_long.txt"), col.names = NA, sep = "\t")
+
+
+
+# Output melted phyloseq object proportion ----
+psmelt(physeq %>% transform_sample_counts(.,function(x) (x / sum(x))*100)) %>%
+ tidyr::pivot_wider(names_from = "Sample", values_from = "Abundance") %>%
+    dplyr::rename(TaxID = OTU) %>%
+    write.table(., file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".BacMap.phyloseq_relative_wide.txt"), col.names = NA, sep = "\t")
+
+
+psmelt(physeq %>% transform_sample_counts(.,function(x) (x / sum(x))*100)) %>%
+    dplyr::rename(TaxID = OTU) %>%
+    write.table(., file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".BacMap.phyloseq_relative_long.txt"), col.names = NA, sep = "\t")
+
+
 
 
 

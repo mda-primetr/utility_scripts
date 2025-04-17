@@ -32,6 +32,13 @@ suppressPackageStartupMessages({
   library(tibble)
 })
 
+
+
+# By default this will use the sample with the lowest reads to rarefy all the samples
+RNGkind(sample.kind = "Rounding")
+set.seed(711)
+
+
 # Read_biom file
 d1 <- rbiom::read.biom(biom_file)
 
@@ -91,11 +98,17 @@ df_seqs <- data.frame(physeq@refseq) %>%
   ungroup()
 
 
+# wide format
 df_melted %>%
   tidyr::pivot_wider(names_from = "Sample", values_from = "Abundance") %>%
   dplyr::rename(ASVID = OTU) %>%
   inner_join(df_seqs, by = "ASVID") %>%
-  write.table(., file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".", "phyloseq_melted.txt"), col.names = NA, sep = "\t")
+  write.table(., file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".", "phyloseq_melted_wide.txt"), col.names = NA, sep = "\t")
+
+
+df_melted %>%
+  dplyr::rename(ASVID = OTU) %>%
+  write.table(., file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".", ".phyloseq_melted_long.txt"), col.names = NA, sep = "\t")
 
 
 
@@ -143,6 +156,7 @@ output_beta_div <- function(OTU_mat, project = project_name, is_rarefied = FALSE
   write.table(as.matrix(vegan::vegdist(t(OTU_mat), method = "jaccard")),
     file = paste0(project, ".", format(Sys.Date(), "%Y.%m.%d"), ".", suffix, "jaccard_dist.txt"), col.names = NA, sep = "\t"
   )
+
 }
 
 
@@ -158,15 +172,20 @@ output_alpha_div(d1_OTU_mat, project = project_name, is_rarefied = FALSE)
 output_beta_div(d1_OTU_mat, project = project_name, is_rarefied = FALSE)
 
 
+# Beta diversity using unifrac distance ----
+# Since UniFrac distance has not been implemented in the vegan package, we have to use Phyloseq package to derive it 
+# Also note that it requires rooted tree and in this case phyloseq will randomly select one of the ASV as root
+
+write.table(as.matrix(phyloseq::distance(physeq, method = "wunifrac")),
+   file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".", "weighted_unifrac_dist.txt"), col.names = NA, sep = "\t"
+ )
 
 
 
 
 
 # Apply rarefaction ----
-# By default this will use the sample with the lowest reads to rarefy all the samples
-RNGkind(sample.kind = "Rounding")
-set.seed(711)
+
 final_phyloseq_rarefied_16s <- rarefy_even_depth(physeq, rngseed = FALSE, verbose = FALSE)
 # Save the phyloseq object as an RDS file
 saveRDS(final_phyloseq_rarefied_16s, file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".", "phyloseq.rarefied.rds"))
@@ -193,6 +212,14 @@ output_alpha_div(otu_table(final_phyloseq_rarefied_16s), project = project_name,
 
 # Output beta diversity rarefied ----
 output_beta_div(otu_table(final_phyloseq_rarefied_16s), project = project_name, is_rarefied = TRUE)
+
+# Beta diversity using unifrac distance ----
+# Since UniFrac distance has not been implemented in the vegan package, we have to use Phyloseq package to derive it 
+
+write.table(as.matrix(phyloseq::distance(final_phyloseq_rarefied_16s, method = "wunifrac")),
+   file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".","rarefied.weighted_unifrac_dist.txt"), col.names = NA, sep = "\t"
+ )
+
 
 
 # Log session info ---
