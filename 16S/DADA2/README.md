@@ -20,6 +20,8 @@ R packages:
 - Phyloseq object in the form of RDS file <project_name.YYYY.MM.DD.phyloseq.rds>
 - Phyloseq object in the form of wide format tab separated file but does not contain sequences and phylogenetic tree <project_name.YYYY.MM.DD.phyloseq_melted_wide.txt>
 - Phyloseq object in the form of long format tab separated file but does not contain sequences and phylogenetic tree <project_name.YYYY.MM.DD.phyloseq_melted_long.txt>
+- Phyloseq object in the form of long format tab separated file but does not contain sequences and phylogenetic tree with relative abundance <project_name.YYYY.MM.DD.relative_phyloseq_melted_long.txt>
+- Phyloseq object in the form of wide format tab separated file but does not contain sequences and phylogenetic tree with relative abundance <project_name.YYYY.MM.DD.relative_phyloseq_melted_wide.txt>
 - Tab delimited file showing number of reads classified into taxonomy and alpha diversity metrics into following columns with rows representing samples <project_name.YYYY.MM.DD.no_of_classified_reads_and_alpha_diversity.txt>
 - Alpha diversity indices are within sample indices independent of other samples
 	- Number of classified reads 

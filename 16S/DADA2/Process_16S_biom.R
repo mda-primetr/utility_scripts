@@ -111,6 +111,21 @@ df_melted %>%
   write.table(., file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".", ".phyloseq_melted_long.txt"), col.names = NA, sep = "\t")
 
 
+# Melted tables with relative abundance
+psmelt(physeq %>% transform_sample_counts(.,function(x) (x / sum(x))*100)) %>%
+  dplyr::rename(ASVID = OTU) %>%
+  write.table(., file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".", "relative_phyloseq_melted_long.txt"), col.names = NA, sep = "\t")
+
+
+psmelt(physeq %>% transform_sample_counts(.,function(x) (x / sum(x))*100)) %>%
+  dplyr::rename(ASVID = OTU) %>%
+  tidyr::pivot_wider(names_from = "Sample", values_from = "Abundance") %>%
+  write.table(., file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".", "relative_phyloseq_melted_wide.txt"), col.names = NA, sep = "\t")
+
+
+
+
+
 
 # Prep data for alpha diversity
 d1_OTU_mat <- as.matrix(rbiom::counts(d1))
@@ -203,6 +218,18 @@ df_melted_rare %>%
 df_melted_rare %>%
   dplyr::rename(ASVID = OTU) %>%
   write.table(., file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".", "rarefied.phyloseq_melted_long.txt"), col.names = NA, sep = "\t")
+
+
+# Rarefied table followed by relative abundance
+psmelt(final_phyloseq_rarefied_16s %>% transform_sample_counts(.,function(x) (x / sum(x))*100)) %>%
+  dplyr::rename(ASVID = OTU) %>%
+  write.table(., file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".", "rarefied.relative_phyloseq_melted_long.txt"), col.names = NA, sep = "\t")
+
+
+psmelt(final_phyloseq_rarefied_16s %>% transform_sample_counts(.,function(x) (x / sum(x))*100)) %>%
+  dplyr::rename(ASVID = OTU) %>%
+  tidyr::pivot_wider(names_from = "Sample", values_from = "Abundance") %>%
+  write.table(., file = paste0(project_name, ".", format(Sys.Date(), "%Y.%m.%d"), ".", "rarefied.relative_phyloseq_melted_wide.txt"), col.names = NA, sep = "\t")
 
 
 

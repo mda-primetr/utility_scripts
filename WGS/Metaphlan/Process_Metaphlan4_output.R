@@ -3,7 +3,7 @@
 # Process_Metaphlan4_output.R
 #
 # Usage:
-#   Rscript Process_Metaphlan4_output /path/to/metaphlan.readStats.table Project_name Metaphlan4Tree_file
+#   Rscript Process_Metaphlan4_output /path/to/metaphlan.readStats.table /path/to/metaphlan.table Project_name Metaphlan4Tree_file
 #
 # Reads a Metaphlan4 output table file and constructs a phyloseq object. Saves the phyloseq object
 # as an RDS file for later use.
